@@ -10,7 +10,7 @@ var app = angular.module("FacebookEvents",[])
 
 app.controller('EventsCtrl', function($scope) {
     
-    		
+    		$scope.loggedIn = false;
 
 			$scope.getEventDetails = function (index,group){
 		    	console.log('details',index,group)
@@ -55,10 +55,12 @@ app.controller('EventsCtrl', function($scope) {
 
 	FB.getLoginStatus(function(response){
 		if (response.status === 'connected') {
+    		$scope.loggedIn = true;
     		$scope.getEvents();
 		} else {
 			FB.login(function(response){
 		    	if(response.status === "connected"){
+		    		$scope.loggedIn = true;
 		    		$scope.getEvents();
 		    	} else {
 		    		console.error("Login failed...");
