@@ -1,0 +1,65 @@
+<html>
+	<head>
+	<title>Facebook Events</title>
+	<link rel="stylesheet" type="text/css" href="/styles/app.css">
+	</head>
+	<body>
+	<div id="app" ng-app="FacebookEvents" ng-controller="EventsCtrl">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<h1>Facebook Events</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>Attending</h2>
+					<ul>
+						<li ng-repeat="event in events.attending">
+							<h3 class="event-name">{{event.name}}</h3>
+							<div class="event-response-buttons">
+								<a ng-click="decline(event.id)" class="btn btn-danger">Decline</a>
+							</div>
+							<div class="event-owner">Hosted by: 
+								<span ng-show="!event.owner"><em>Loading...</em></span>
+								<span ng-show="event.owner">{{event.owner}}</span>
+							</div>
+							<p class="event-date">{{event.start_time|date:'EEEE dd MMMM yyyy @ HH:mm'}}</p>
+							<div class="event-description">{{event.description}}</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>Not responded</h2>
+					<ul>
+						<li ng-repeat="event in events.not_replied">
+							<h2 class="event-name">{{event.name}}</h2>
+							<div class="event-response-buttons">
+								<a ng-click="attend(event.id)" class="btn btn-success">Attend</a>
+								<a ng-click="decline(event.id)" class="btn btn-danger">Decline</a>
+							</div>
+							<div class="event-owner">Hosted by: 
+								<span ng-show="!event.owner"><em>Loading...</em></span>
+								<span ng-show="event.owner">{{event.owner}}</span>
+							</div>
+							<p class="event-date">{{event.start_time|date:'EEEE dd MMMM yyyy @ HH:mm'}}</p>
+							<p class="event-location">
+								<strong>{{event.place.name}}</strong><br>
+								{{event.place.location.street}}<br>
+								{{event.place.location.city + ','}} {{event.place.location.state + ','}},
+								{{event.place.location.country}}<br>
+							</p>
+							<div class="event-description">{{event.description}}</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/scripts/vendor.js"></script>
+	<script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<script type="text/javascript" src="/scripts/includes/app.js"></script>
+	</body>
+</html>
